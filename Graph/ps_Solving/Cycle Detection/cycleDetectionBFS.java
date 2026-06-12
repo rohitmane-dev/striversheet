@@ -1,7 +1,6 @@
-// package Graph.ps_Solving;
 import java.util.*;
 
- class components {
+class cycleDetectionBFS {
     public static void main(String[] args) {
         // Example input:
         int A = 5; // number of nodes (1-based indexing)
