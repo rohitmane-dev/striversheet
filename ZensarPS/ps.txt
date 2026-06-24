@@ -1,0 +1,101 @@
+PS1
+Description: You are responsible for a hierarchical collection of uniquely numbered display cases. Each display case may contain at most two sub-cases: an "earlier" sub-case and a "later" sub-case. For every display case, every number contained in its earlier sub-case is strictly smaller than the display case's number, and every number contained in its later sub-case is strictly larger. Design an iterator object that allows a curator to move forward through all display case numbers in ascending order, one at a time, starting from a position that is just before the smallest number in the whole structure.
+
+Requirements: ["Constructor(displayRoot): Initialize the iterator with the root of the hierarchical layout. The iterator's internal pointer must be positioned just before the smallest number (i.e., it does not point to any existing number).", 'boolean hasNext(): Return true if there exists an unvisited number larger than the current pointer position; otherwise return false.', 'int next(): Advance the pointer to the next larger number and return that number.']
+
+Notes: ['Each display case holds a single unique integer value.', 'Each display case may have zero, one, or two sub-cases (earlier and/or later).', 'The iterator must expose only the three operations described above.']
+
+constraints: ['The number of display cases (nodes) is in the range [1, 10^5].', 'All display case values are unique integers in the range [-10^9, 10^9].', 'The total number of calls to next() and hasNext() will not exceed 10^5.']
+
+Example 1: Input: displayRoot = [7,3,15,null,null,9,20], operations = ["BSTIterator","next","next","hasNext","next","hasNext","next","hasNext"] Output: [null,3,7,true,9,true,15,true,20,false]
+
+Example 2: Input: displayRoot = [2,1,3], operations = ["BSTIterator","hasNext","next","next","hasNext"] Output: [null,true,1,2,true]
+
+PS2
+Description: You are a museum restorer working to recover the longest palindromic reading from a damaged inscription. The inscription is represented by a string s. You may remove any number of characters (including zero) from the inscription, but you must keep the remaining characters in their original order. Your task is to determine the maximum possible length of a subsequence of s that reads the same forwards and backwards (a palindromic subsequence).
+
+Requirements: - Input: a string s representing the inscription. - Output: an integer representing the length of the longest palindromic subsequence obtainable by deleting zero or more characters while preserving the original order.
+
+Notes: - A subsequence is formed by deleting zero or more characters from the original string without changing the relative order of the remaining characters. - Characters are case-sensitive and, for the purposes of this problem, s contains only lowercase English letters.
+
+Constraints: - 1 <= s.length <= 1000 - s consists only of lowercase English letters
+
+Example 1: Input: s = "bbbab" Output: 4
+
+Example 2: Input: s = "cbbd" Output: 2
+
+Example 3: Input: s = "a" Output: 1
+class solution{
+    public int Findout(String s){
+        int max=0;
+	if(s.length()>1) max=1
+
+        for(int i=0;i<s.length();i++){
+            StringBuilder sb = new StringBuilder();
+            sb.push(s.charAt(i));
+
+            for(int j=1;j<s.length();j++){
+                sb.push(s.charAt(j));
+                if(sb.toString().equals(sb.reverse.toString()){
+                    max=Math.max(max,sb.size());
+                }
+            } 
+        }
+    return max;
+    }
+}
+
+
+
+PS3
+Description:
+You are hosting a social gathering with N attendees. Information about who knows whom is captured in an N x N matrix called knows, where knows[i][j] = 1 means person i knows person j, and knows[i][j] = 0 means person i does not know person j. A celebrity at the gathering is an attendee who is known by every other person but who does not know anyone at the party.
+
+Given the matrix knows, determine whether there is a celebrity at the gathering. If a celebrity exists, return the index (0-based) of the celebrity; otherwise, return -1.
+
+Requirements:
+- Input: an integer N and an N x N binary matrix knows (presented as a list of N lists, each of length N).
+- Output: a single integer representing the index of the celebrity (0 to N-1) or -1 if there is no celebrity.
+- A valid celebrity c must satisfy:
+  - For every person i where i != c, knows[i][c] == 1 (everyone else knows c).
+  - For every person j, knows[c][j] == 0 (c knows no one).
+
+Notes:
+- The matrix entries are either 0 or 1.
+- For clarity, assume knows[i][i] == 0 for all i (a person does not count as knowing themselves).
+- If multiple people hypothetically met the criteria (which should not happen under honest input), return any valid index; however, by the definition above at most one person can satisfy both conditions.
+
+Constraints:
+- The input matrix is square: N >= 1 and size is N x N.
+- Each matrix entry is either 0 or 1.
+- Time and memory limits are typical for coding challenge environments; design your solution to handle reasonably large N (for example, up to thousands) efficiently.
+
+Example 1:
+Input: knows = [[0,1,0],[0,0,0],[0,1,0]]
+Output: 1
+Explanation: Person 1 knows nobody (row 1 is all zeros) and everyone else (persons 0 and 2) knows person 1 (column 1 has ones for indices 0 and 2).
+
+Example 2:
+Input: knows = [[0,1,0],[1,0,0],[0,1,0]]
+Output: -1
+Explanation: No person meets both conditions simultaneously; there is no celebrity.
+
+Example 3:
+Input: knows = [[0]]
+Output: 0
+Explanation: With a single attendee who does not know themselves, that person is trivially the celebrity.
+
+PS4
+Description: You are organizing deliveries in a warehouse where crates are stacked in a hierarchical layout. Each crate may hold up to two directly smaller crates beneath it (a left and a right one). Starting from the top crate (the root), you make passes across each horizontal level of crates to record their identification numbers. For the first level you scan from left to right, for the second level you scan from right to left, then alternate the scanning direction for each subsequent level. Given the top crate of the structure, produce a list of lists where each inner list contains the identification numbers of the crates seen on that level in the order you scanned them.
+
+Requirements: Input: the root of a binary hierarchical structure where each node contains an integer id and up to two child crates (left and right). Output: a list of lists of integers, where each inner list represents the ids of crates on one level in the alternating scanning order described.
+
+Notes: If the structure contains no crates (the root is null), return an empty list. The top crate's level is considered level 0 and is scanned left to right. Subsequent levels alternate direction.
+
+constraints: The number of crates (nodes) is in the range [0, 2000]. Each crate id is an integer in the range [-1000, 1000]. The structure is a traditional binary parent-child layout where each node has at most two children labeled 'left' and 'right'.
+
+Example 1: Input: [3,9,20,null,null,15,7] Output: [[3],[20,9],[15,7]]
+
+Example 2: Input: [1,2,3,4,null,null,5] Output: [[1],[3,2],[4,5]]
+
+Example 3: Input: [] Output: []
